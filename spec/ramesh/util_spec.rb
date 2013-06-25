@@ -16,4 +16,22 @@ describe Util do
       end
     end
   end
+
+  describe '#get_mesh_indexes' do
+    before(:all) do
+      @indexes = get_mesh_indexes
+    end
+
+    context 'downloaded indexes' do
+      it 'is Array' do
+        @indexes.class.should == Array
+      end
+
+      it 'has 25 items' do
+        @indexes.length.should == 25
+      end
+
+      it 'has 5 minutes interval between items'
+    end
+  end
 end
