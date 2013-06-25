@@ -32,6 +32,10 @@ describe Util do
       end
 
       it 'has 5 minutes interval between items'
+
+      it 'is sorted decrementally' do
+        @indexes.should == @indexes.sort.reverse
+      end
     end
   end
 end
