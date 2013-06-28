@@ -7,13 +7,13 @@ module Ramesh
 
     describe '#extract_filename' do
       context 'http://tokyo-ame.jwa.or.jp/map/map000.jpg' do
-        it 'returns "map000.jpg"' do
+        it 'should return "map000.jpg"' do
           extract_filename('http://tokyo-ame.jwa.or.jp/map/map000.jpg').should == 'map000.jpg'
         end
       end
 
       context 'http://tokyo-ame.jwa.or.jp/map/' do
-        it 'returns ""' do
+        it 'should return ""' do
           extract_filename('http://tokyo-ame.jwa.or.jp/map/').should == ''
         end
       end
@@ -25,23 +25,23 @@ module Ramesh
       end
 
       context 'downloaded indexes' do
-        it 'is Array' do
+        it 'should be Array' do
           @indexes.class.should == Array
         end
 
-        it 'has 25 items' do
+        it 'should have 25 items' do
           @indexes.length.should == 25
         end
 
         24.times do |i|
-          it "has 5 minutes interval between indexes[#{i}] and indexes[#{i + 1}]" do
+          it "should have 5 minutes interval between indexes[#{i}] and indexes[#{i + 1}]" do
             time1 = Time.parse(@indexes[i])
             time2 = Time.parse(@indexes[i + 1])
             (time1 - time2).should == 300 #seconds
           end
         end
 
-        it 'is sorted decrementally' do
+        it 'should be sorted decrementally' do
           @indexes.should == @indexes.sort.reverse
         end
       end
