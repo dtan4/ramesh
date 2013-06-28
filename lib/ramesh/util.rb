@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'time'
 
-module Util
+module Ramesh::Util
   AMESH_INDEXES_URL = 'http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js'
 
   def extract_filename(url)
