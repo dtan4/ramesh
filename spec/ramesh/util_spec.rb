@@ -29,8 +29,18 @@ module Ramesh
           @indexes.class.should == Array
         end
 
+        it 'should be sorted decrementally' do
+          @indexes.should == @indexes.sort.reverse
+        end
+
         it 'should have 25 items' do
           @indexes.length.should == 25
+        end
+
+        25.times do |i|
+          it "indexes[#{i}] should be 12 digit number" do
+            @indexes[i].should =~ /^\d{12}$/
+          end
         end
 
         24.times do |i|
@@ -39,10 +49,6 @@ module Ramesh
             time2 = Time.parse(@indexes[i + 1])
             (time1 - time2).should == 300 #seconds
           end
-        end
-
-        it 'should be sorted decrementally' do
-          @indexes.should == @indexes.sort.reverse
         end
       end
     end
