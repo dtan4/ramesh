@@ -38,4 +38,30 @@ describe Util do
       end
     end
   end
+
+  describe '#format_date_str' do
+    context '201306281400' do
+      it 'should return "2013-06-28 14:00"' do
+        format_date_str('201306281400').should == '2013-06-28 14:00'
+      end
+    end
+
+    context '20130628140' do
+      it 'should return nil' do
+        format_date_str('20130628140').should be_nil
+      end
+    end
+
+    context '201313130000' do
+      it 'should return nil' do
+        format_date_str('201313130000').should be_nil
+      end
+    end
+
+    context '201306282720' do
+      it 'should return nil' do
+        format_date_str('201306282720').should be_nil
+      end
+    end
+  end
 end
