@@ -42,14 +42,6 @@ module Ramesh
             @indexes[i].should =~ /^\d{12}$/
           end
         end
-
-        24.times do |i|
-          it "should have 5 minutes interval between indexes[#{i}] and indexes[#{i + 1}]" do
-            time1 = Time.parse(@indexes[i])
-            time2 = Time.parse(@indexes[i + 1])
-            (time1 - time2).should == 300 #seconds
-          end
-        end
       end
     end
 
