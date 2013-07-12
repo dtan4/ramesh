@@ -8,8 +8,8 @@ module Ramesh::ImageUtil
 
   include Magick
 
-  def create_moment_image(filename)
-    mesh_url = MESH_URL_BASE + filename
+  def create_moment_image(gif_name)
+    mesh_url = MESH_URL_BASE + gif_name
 
     begin
       image_list = [
@@ -18,7 +18,7 @@ module Ramesh::ImageUtil
                     Image.from_blob(open(MAP_MASK_URL).read).shift
                    ]
       moment_image = composite_images(image_list)
-      moment_image.write(filename)
+      moment_image.write(gif_name)
     rescue OpenURI::HTTPError
     end
   end
