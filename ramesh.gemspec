@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Ramesh::VERSION
   spec.authors       = ["dtan4"]
   spec.email         = ["dtanshi45@gmail.com"]
-  spec.description   = %q{Download the data of Tokyo-Amesh by typing simple commands.}
-  spec.summary       = %q{Tokyo-Amesh Command Line Tool}
-  spec.homepage      = ""
+  spec.description   = %q{Command Line Tool for Tokyo-Amesh}
+  spec.summary       = %q{Tokyo-Amesh Downloader}
+  spec.homepage      = "https://github.com/dtan4/ramesh"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)

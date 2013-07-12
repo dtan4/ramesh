@@ -1,8 +1,10 @@
 # Ramesh
 
-TODO: Write a gem description
+Command Line Tool for [東京アメッシュ (Tokyo-Amesh)](http://tokyo-ame.jwa.or.jp/)
 
 ## Installation
+
+At first, you need to install [ImageMagick](http://www.imagemagick.org/script/index.php) (if you haven't installed yet).
 
 Add this line to your application's Gemfile:
 
@@ -18,7 +20,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    ramesh                  download the latest image
+    ramesh [0-120]          download the image specified minutes before
+    ramesh [0-120]-[0-120]  download images within a specified range
+    ramesh -h               show this usage
 
 ## Contributing
 
