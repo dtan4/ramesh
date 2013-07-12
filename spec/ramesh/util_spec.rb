@@ -45,31 +45,42 @@ module Ramesh
       end
     end
 
-    describe '#format_date_str' do
-      context '201306281400' do
-        it 'should return "2013-06-28 14:00"' do
-          format_date_str('201306281400').should == '2013-06-28 14:00'
+    describe "#validate_minutes" do
+      context "0" do
+        it 'should be true' do
+          validate_minutes(0).should be_true
         end
       end
 
-      context '20130628140' do
-        it 'should return nil' do
-          format_date_str('20130628140').should be_nil
+      context "5" do
+        it 'should be true' do
+          validate_minutes(5).should be_true
         end
       end
 
-      context '201313130000' do
-        it 'should return nil' do
-          format_date_str('201313130000').should be_nil
+      context "7" do
+        it 'should be false' do
+          validate_minutes(7).should be_false
         end
       end
 
-      context '201306282720' do
-        it 'should return nil' do
-          format_date_str('201306282720').should be_nil
+      context "120" do
+        it 'should be true' do
+          validate_minutes(120).should be_true
+        end
+      end
+
+      context "130" do
+        it 'should be false' do
+          validate_minutes(130).should be_false
+        end
+      end
+
+      context "-5" do
+        it 'should be false' do
+          validate_minutes(130).should be_false
         end
       end
     end
   end
-
 end

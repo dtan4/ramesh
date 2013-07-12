@@ -21,18 +21,7 @@ module Ramesh::Util
     end
   end
 
-  def format_date_str(date_str)
-    if date_str =~ /(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})/
-      year, month, day, hour, minute = *(Regexp.last_match[1..-1])
-
-      begin
-        t = Time.parse(date_str)
-        "#{year}-#{month}-#{day} #{hour}:#{minute}"
-      rescue ArgumentError
-        nil
-      end
-    else
-      nil
-    end
+  def validate_minutes(minutes)
+    (minutes >= 0) && (minutes <= 120) && (minutes % 5 == 0)
   end
 end
