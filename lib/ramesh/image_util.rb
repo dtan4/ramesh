@@ -8,16 +8,6 @@ module Ramesh::ImageUtil
 
   include Magick
 
-  def create_animation_gif(indexes, filename)
-    gif_list = indexes.map { |index| "#{index}.gif" }
-    gif_list.each { |gif| create_moment_image("#{gif}") }
-
-    image_list = ImageList.new(*gif_list)
-    image_list.delay = 10
-    image_list.iterations = 0
-    image_list.write(filename)
-  end
-
   def create_moment_image(filename)
     mesh_url = MESH_URL_BASE + filename
 
