@@ -14,8 +14,8 @@ module Ramesh::ImageUtil
     begin
       image_list = [
                     Image.from_blob(open(BACKGROUND_IMAGE_URL).read).shift,
-                    Image.from_blob(open(MAP_MASK_URL).read).shift,
-                    Image.from_blob(open(mesh_url).read).shift
+                    Image.from_blob(open(mesh_url).read).shift,
+                    Image.from_blob(open(MAP_MASK_URL).read).shift
                    ]
       moment_image = composite_images(image_list)
       moment_image.write(filename)
@@ -25,9 +25,7 @@ module Ramesh::ImageUtil
 
   def composite_images(image_list)
     image = image_list.shift
-
-    (1...image_list.length).each { |i| image = image.composite(image_list[i], 0, 0, OverCompositeOp) }
-
+    image_list.each { |layer| image = image.composite(layer, 0, 0, OverCompositeOp) }
     image
   end
 end
