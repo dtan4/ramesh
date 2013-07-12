@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+
+$LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+require "ramesh"
+
+USAGE = <<-EOS
+Usage:
+    ramesh                  download the latest image
+    ramesh [0-120]          download the image specified minutes before
+    ramesh [0-120]-[0-120]  download images within a specified range
+    ramesh -h               show this usage
+EOS
+
+client = Ramesh::Client.new
+
+if ARGV.length == 0
+  client.download_moment_image
+
+else
+  if ARGV.include?('-h')
+    puts USAGE
+    exit
+  end
+
+  arg = ARGV.shift
+
+  if arg =~ /^(?:0|[1-9]\d*)$/
+    client.download_moment_image(arg.to_i)
+  elsif arg =~ /^(?:0|[1-9]\d*)-(?:0|[1-9]\d*)$/
+    client.download_sequential_image(arg)
+  else
+    $stderr.puts USAGE
+  end
+end
