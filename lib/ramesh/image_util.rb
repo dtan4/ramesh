@@ -11,11 +11,14 @@ module Ramesh::ImageUtil
   def create_moment_image(gif_name)
     mesh_url = MESH_URL_BASE + gif_name
 
+    @background_image ||= Image.from_blob(open(BACKGROUND_IMAGE_URL).read).shift
+    @map_image ||= Image.from_blob(open(MAP_MASK_URL).read).shift
+
     begin
       image_list = [
-                    Image.from_blob(open(BACKGROUND_IMAGE_URL).read).shift,
+                    @background_image,
                     Image.from_blob(open(mesh_url).read).shift,
-                    Image.from_blob(open(MAP_MASK_URL).read).shift
+                    @map_image
                    ]
       moment_image = composite_images(image_list)
       moment_image.write(gif_name)
