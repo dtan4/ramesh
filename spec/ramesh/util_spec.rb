@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'time'
 
-WebMock.allow_net_connect!
-
 module Ramesh
   describe Util do
     include Ramesh::Util
