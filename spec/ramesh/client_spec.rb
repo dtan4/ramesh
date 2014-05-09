@@ -2,34 +2,34 @@ require 'spec_helper'
 
 module Ramesh
   describe Client do
-    let(:client) { client = Ramesh::Client.new }
+    let(:client) { Ramesh::Client.new }
 
     describe "#download_sequential_image" do
       context "0-20" do
         it "should download 5 images" do
           client.download_sequential_image('0-20')
-          expect(Dir.glob("*.gif").length).to eq(5)
+          expect(Dir.glob("*.gif")).to have(5).items
         end
       end
 
       context "20-0" do
         it "should download 5 images" do
           client.download_sequential_image('20-0')
-          expect(Dir.glob("*.gif").length).to eq(5)
+          expect(Dir.glob("*.gif")).to have(5).items
         end
       end
 
       context "30-80" do
         it "should download 11 images" do
           client.download_sequential_image('30-80')
-          expect(Dir.glob("*.gif").length).to eq(11)
+          expect(Dir.glob("*.gif")).to have(11).items
         end
       end
 
       context "0-120" do
         it "should download 25 images" do
           client.download_sequential_image('0-120')
-          expect(Dir.glob("*.gif").length).to eq(25)
+          expect(Dir.glob("*.gif")).to have(25).items
         end
       end
 
