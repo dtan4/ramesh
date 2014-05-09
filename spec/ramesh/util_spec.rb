@@ -22,7 +22,7 @@ module Ramesh
     end
 
     describe "#get_mesh_indexes" do
-      context "when succeeded to download" do
+      context "succeeded to download" do
         before do
           stub_request(:get, "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js")
           .to_return(body: open(fixture_path("mesh_index.js")).read, status: 200)
@@ -49,7 +49,7 @@ module Ramesh
         end
       end
 
-      context "when failed to download" do
+      context "failed to download" do
         before do
           stub_request(:get, "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js")
           .to_return(status: 404)
