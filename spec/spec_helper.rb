@@ -1,4 +1,5 @@
 require 'ramesh'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
@@ -10,4 +11,8 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+end
+
+def fixture_path(name)
+  File.expand_path(File.join("..", "fixtures", name), __FILE__)
 end
