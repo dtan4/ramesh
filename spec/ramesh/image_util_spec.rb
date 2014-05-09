@@ -18,7 +18,7 @@ module Ramesh
 
       context "downloaded image" do
         it "should exist" do
-          File.exist?(@gif).should be_true
+          expect(File.exist?(@gif)).to be_true
         end
       end
 
