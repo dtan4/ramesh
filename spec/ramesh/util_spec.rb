@@ -51,39 +51,19 @@ module Ramesh
     end
 
     describe "#validate_minutes" do
-      context "0" do
-        it "should be true" do
-          expect(validate_minutes(0)).to be_true
+      [0, 5, 60, 120].each do |minute|
+        context minute.to_s do
+          it "should be true" do
+            expect(validate_minutes(minute)).to be_true
+          end
         end
       end
 
-      context "5" do
-        it "should be true" do
-          expect(validate_minutes(5)).to be_true
-        end
-      end
-
-      context "7" do
-        it "should be false" do
-          expect(validate_minutes(7)).to be_false
-        end
-      end
-
-      context "120" do
-        it "should be true" do
-          expect(validate_minutes(120)).to be_true
-        end
-      end
-
-      context "130" do
-        it "should be false" do
-          expect(validate_minutes(130)).to be_false
-        end
-      end
-
-      context "-5" do
-        it "should be false" do
-          expect(validate_minutes(130)).to be_false
+      [-10, -1, 13, 130].each do |minute|
+        context minute.to_s do
+          it "should be false" do
+            expect(validate_minutes(minute)).to be_false
+          end
         end
       end
     end
