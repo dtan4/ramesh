@@ -22,14 +22,14 @@ module Ramesh
     end
 
     describe "#get_mesh_indexes" do
-      before do
-        stub_request(:get, "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js")
+      context "when succeeded to download" do
+        before do
+          stub_request(:get, "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js")
           .to_return(body: open(fixture_path("mesh_index.js")).read, status: 200)
-      end
+        end
 
-      let(:indexes) { get_mesh_indexes }
+        let(:indexes) { get_mesh_indexes }
 
-      context "downloaded indexes" do
         it "should be Array" do
           expect(indexes).to be_a Array
         end
@@ -46,6 +46,17 @@ module Ramesh
           indexes.each do |index|
             expect(index).to match /^\d{12}$/
           end
+        end
+      end
+
+      context "when failed to download" do
+        before do
+          stub_request(:get, "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js")
+          .to_return(status: 404)
+        end
+
+        it "should raise DownloadError" do
+          expect { get_mesh_indexes }.to raise_error Ramesh::DownloadError, "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js"
         end
       end
     end

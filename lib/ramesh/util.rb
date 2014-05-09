@@ -18,7 +18,7 @@ module Ramesh::Util
       indexes_js = open(AMESH_INDEXES_URL).read
       indexes = indexes_js.gsub(/[^0-9,]/, '').split(',')
     rescue
-      $stderr.puts 'Failed to download: #{AMESH_INDEXES_URL}'
+      raise Ramesh::DownloadError, AMESH_INDEXES_URL
     end
   end
 
