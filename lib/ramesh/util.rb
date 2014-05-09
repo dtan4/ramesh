@@ -1,14 +1,15 @@
 require 'open-uri'
 require 'time'
+require 'uri'
 
 module Ramesh::Util
   AMESH_INDEXES_URL = 'http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js'
 
   def extract_filename(url)
-    if url =~ /.+\/([a-zA-Z0-9._-]+)$/
-      $1
+    if url[-1] == "/"
+      ""
     else
-      ''
+      File.basename(URI(url).path)
     end
   end
 
