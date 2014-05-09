@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'time'
 
+WebMock.allow_net_connect!
+
 module Ramesh
   describe Util do
     include Ramesh::Util
@@ -20,25 +22,30 @@ module Ramesh
     end
 
     describe "#get_mesh_indexes" do
-      before(:all) do
-        @indexes = get_mesh_indexes
+      before do
+        stub_request(:get, "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js")
+          .to_return(body: open(fixture_path("mesh_index.js")).read, status: 200)
       end
+
+      let(:indexes) { get_mesh_indexes }
 
       context "downloaded indexes" do
         it "should be Array" do
-          expect(@indexes).to be_a Array
+          expect(indexes).to be_a Array
         end
 
-        it "should be sorted decrementally" do
-          expect(@indexes).to eq @indexes.sort.reverse
+        it "should be sorted by desc" do
+          expect(indexes).to eq indexes.sort.reverse
         end
 
         it "should have 25 items" do
-          expect(@indexes).to have(25).items
+          expect(indexes).to have(25).items
         end
 
         it "item should be 12 digit number" do
-          expect(@indexes[0]).to match /^\d{12}$/
+          indexes.each do |index|
+            expect(index).to match /^\d{12}$/
+          end
         end
       end
     end
