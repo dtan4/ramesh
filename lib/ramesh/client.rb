@@ -1,44 +1,25 @@
 module Ramesh
   class Client
-    include Util
+    MESHES_INDEX_URL = "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js"
 
-    def initialize
-      @indexes = get_mesh_indexes
+    def download_image(save_dir, minutes = 0)
+      unless valid_minutes?(minutes)
+        raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120"
+      end
+
+      image_name = meshes_index[minutes / 5]
+      image = Image.new(image_name)
+      image.save(save_dir, image_name)
     end
 
-    def download_sequential_image(minute_range)
-      range = minute_range.split('-').map { |num| num.to_i }.sort
+    private
 
-      unless range.length == 2
-        $stderr.puts "error: invalid range"
-        exit 1
-      end
-
-      range.each do |min|
-        unless validate_minutes(min)
-          $stderr.puts "error: minutes must be a number; 0, 5, 10, ... 120"
-          exit 1
-        end
-      end
-
-      minute = range[0]
-
-      while minute <= range[1]
-        download_moment_image(minute)
-        minute += 5
-      end
+    def meshes_index
+      @meshes_index ||= open(MESHES_INDEX_URL).read.gsub(/[^0-9,]/, "").split(",")
     end
 
-    def download_moment_image(minutes = 0)
-      unless validate_minutes(minutes)
-        $stderr.puts "error: minutes must be a number; 0, 5, 10, ... 120"
-        exit 1
-      end
-
-      download_index = @indexes[minutes / 5]
-      create_moment_image("#{download_index}.gif")
-
-      puts "Successfully downloaded: #{download_index}.gif"
+    def valid_minutes?(minutes)
+      (minutes >= 0) && (minutes <= 120) && (minutes % 5 == 0)
     end
   end
 end
