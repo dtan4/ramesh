@@ -26,8 +26,9 @@ module Ramesh
       @image = composite_images(image_list)
     end
 
-    def write(image_path)
-
+    def save(save_dir, image_name)
+      save_path = File.join(save_dir, "#{image_name}.jpg")
+      @image.write(save_path)
     end
 
     private

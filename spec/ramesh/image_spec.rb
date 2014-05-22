@@ -1,9 +1,14 @@
 require "spec_helper"
+require "fileutils"
 
 module Ramesh
   describe Image do
     let(:image_name) do
-      "201405222005"
+      "201405091845"
+    end
+
+    let(:tmpdir) do
+      File.expand_path(File.join("..", "..", "tmp"), __FILE__)
     end
 
     let(:mesh_url) do
@@ -47,6 +52,22 @@ module Ramesh
         expect(a_request(:get, mesh_url)).to have_been_made.once
         expect(a_request(:get, background_url)).to have_been_made.once
         expect(a_request(:get, mask_url)).to have_been_made.once
+      end
+    end
+
+    describe "#save" do
+      before do
+        Dir.mkdir(tmpdir)
+      end
+
+      it "should save itself to the file" do
+        image = described_class.new(image_name)
+        image.save(tmpdir, image_name)
+        expect(File.exist?(File.join(tmpdir, "#{image_name}.jpg"))).to be_true
+      end
+
+      after do
+        FileUtils.rm_rf(tmpdir)
       end
     end
   end
