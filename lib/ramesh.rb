@@ -1,5 +1,3 @@
-require "ramesh/version"
-require "ramesh/util"
-require "ramesh/image"
 require "ramesh/client"
-require "ramesh/errors"
+require "ramesh/image"
+require "ramesh/version"
