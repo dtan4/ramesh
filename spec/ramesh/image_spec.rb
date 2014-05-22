@@ -12,7 +12,7 @@ module Ramesh
     end
 
     let(:mesh_url) do
-      "http://tokyo-ame.jwa.or.jp/mesh/000/#{image_name}.jpg"
+      "http://tokyo-ame.jwa.or.jp/mesh/000/#{image_name}.gif"
     end
 
     let(:background_url) do

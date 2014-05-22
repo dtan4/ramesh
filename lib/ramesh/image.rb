@@ -38,7 +38,7 @@ module Ramesh
     end
 
     def moment_image_url(image_name)
-      "#{MESH_URL_BASE}#{image_name}.jpg"
+      "#{MESH_URL_BASE}#{image_name}.gif"
     end
 
     def composite_images(image_list)
