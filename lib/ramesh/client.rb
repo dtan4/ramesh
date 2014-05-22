@@ -2,12 +2,12 @@ module Ramesh
   class Client
     MESHES_INDEX_URL = "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js"
 
-    def download_image(save_dir, minutes = 0)
-      unless valid_minutes?(minutes)
+    def download_image(save_dir, minute = 0)
+      unless valid_minutes?(minute)
         raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120"
       end
 
-      image_name = meshes_index[minutes / 5]
+      image_name = name_from_minute(minute)
       image = Image.new(image_name)
       image.save(save_dir, image_name)
     end
@@ -26,6 +26,10 @@ module Ramesh
 
     def meshes_index
       @meshes_index ||= open(MESHES_INDEX_URL).read.gsub(/[^0-9,]/, "").split(",")
+    end
+
+    def name_from_minute(minute)
+      meshes_index[minute / 5]
     end
 
     def valid_minutes?(minutes)
