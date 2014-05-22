@@ -12,6 +12,16 @@ module Ramesh
       image.save(save_dir, image_name)
     end
 
+    def download_sequential_images(save_dir, from, to)
+      unless valid_minutes?(from) && valid_minutes?(to)
+        raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120"
+      end
+
+      (from..to).step(5) do |minute|
+        download_image(save_dir, minute)
+      end
+    end
+
     private
 
     def meshes_index

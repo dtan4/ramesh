@@ -51,6 +51,23 @@ module Ramesh
       end
     end
 
+    describe "#download_sequential_images" do
+      context "when valid section is specified" do
+        it "should download the images" do
+          expect_any_instance_of(Client).to receive(:download_image).exactly(7).times
+          client.download_sequential_images(tmpdir, 0, 30)
+        end
+      end
+
+      context "when invalid section is specified" do
+        it "should raise ArgumentError" do
+          expect do
+            client.download_sequential_images(tmpdir, 1, 2)
+          end.to raise_error ArgumentError
+        end
+      end
+    end
+
     after do
       FileUtils.rm_rf(tmpdir)
     end
