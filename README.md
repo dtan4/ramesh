@@ -1,4 +1,7 @@
 # Ramesh
+[![Build Status](https://travis-ci.org/dtan4/ramesh.svg?branch=master)](https://travis-ci.org/dtan4/ramesh)
+[![Coverage Status](https://img.shields.io/coveralls/dtan4/ramesh.svg)](https://coveralls.io/r/dtan4/ramesh?branch=master)
+[![Code Climate](https://codeclimate.com/github/dtan4/ramesh.png)](https://codeclimate.com/github/dtan4/ramesh)
 
 Command Line Tool for [東京アメッシュ (Tokyo-Amesh)](http://tokyo-ame.jwa.or.jp/)
 
