@@ -1,7 +1,6 @@
 module Ramesh
   class Client
     include Util
-    include ImageUtil
 
     def initialize
       @indexes = get_mesh_indexes
