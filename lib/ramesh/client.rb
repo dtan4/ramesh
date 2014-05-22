@@ -2,6 +2,10 @@ module Ramesh
   class Client
     MESHES_INDEX_URL = "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js"
 
+    def initialize(logger)
+      @logger = logger
+    end
+
     def download_image(save_dir, minute = 0)
       unless valid_minutes?(minute)
         raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120"
@@ -10,6 +14,8 @@ module Ramesh
       image_name = name_from_minute(minute)
       image = Image.new(image_name)
       image.save(save_dir, image_name)
+
+      @logger.info("Downloaded: #{image_name}.jpg")
     end
 
     def download_sequential_images(save_dir, from, to)

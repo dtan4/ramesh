@@ -19,7 +19,7 @@ end
 
 argv = parser.parse(ARGV)
 
-client = Ramesh::Client.new
+client = Ramesh::Client.new(Ramesh::Logger.new(STDOUT))
 
 case argv.length
 when 0

@@ -3,8 +3,12 @@ require "fileutils"
 
 module Ramesh
   describe Client do
+    let(:logger) do
+      double("logger", info: true)
+    end
+
     let(:client) do
-      Ramesh::Client.new
+      Ramesh::Client.new(logger)
     end
 
     let(:tmpdir) do
@@ -33,11 +37,21 @@ module Ramesh
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091845").once
           client.download_image(tmpdir)
         end
+
+        it "should log the result" do
+          expect(logger).to receive(:info).with("Downloaded: 201405091845.jpg")
+          client.download_image(tmpdir)
+        end
       end
 
       context "when valid minute is specified" do
         it "should download the image of the specified minutes ago" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091815").once
+          client.download_image(tmpdir, 30)
+        end
+
+        it "should log the result" do
+          expect(logger).to receive(:info).with("Downloaded: 201405091815.jpg")
           client.download_image(tmpdir, 30)
         end
       end
