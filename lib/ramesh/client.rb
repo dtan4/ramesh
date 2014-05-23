@@ -12,7 +12,7 @@ module Ramesh
       end
 
       image_name = name_from_minute(minute)
-      image = Image.new(image_name)
+      image = Image.new(image_name, background_image, mask_image)
       image.save(save_dir, image_name)
 
       @logger.info("Downloaded: #{image_name}.jpg")
@@ -29,6 +29,14 @@ module Ramesh
     end
 
     private
+
+    def background_image
+      @background_image ||= Image.background_image
+    end
+
+    def mask_image
+      @mask_image ||= Image.mask_image
+    end
 
     def meshes_index
       @meshes_index ||= open(MESHES_INDEX_URL).read.gsub(/[^0-9,]/, "").split(",")
