@@ -23,13 +23,17 @@ module Ramesh
       "http://tokyo-ame.jwa.or.jp/map/msk000.png"
     end
 
+    let(:fixture_image) do
+      open(fixture_path("lena.png")).read
+    end
+
     before do
       stub_request(:get, mesh_url)
-        .to_return(status: 200, body: open(fixture_path("lena.png")).read)
+        .to_return(status: 200, body: fixture_image)
       stub_request(:get, background_url)
-        .to_return(status: 200, body: open(fixture_path("lena.png")).read)
+        .to_return(status: 200, body: fixture_image)
       stub_request(:get, mask_url)
-        .to_return(status: 200, body: open(fixture_path("lena.png")).read)
+        .to_return(status: 200, body: fixture_image)
     end
 
     describe "#background_image" do
@@ -47,11 +51,26 @@ module Ramesh
     end
 
     describe "#initialize" do
-      it "should composite the moment image" do
-        described_class.new(image_name)
-        expect(a_request(:get, mesh_url)).to have_been_made.once
-        expect(a_request(:get, background_url)).to have_been_made.once
-        expect(a_request(:get, mask_url)).to have_been_made.once
+      context "without cached images" do
+        it "should composite the moment image" do
+          described_class.new(image_name)
+          expect(a_request(:get, mesh_url)).to have_been_made.once
+          expect(a_request(:get, background_url)).to have_been_made.once
+          expect(a_request(:get, mask_url)).to have_been_made.once
+        end
+      end
+
+      context "with cached images" do
+        it "should composite the moment image" do
+          image = double(composite: true)
+          background_image = double(composite: image)
+          mask_image = double(composite: image)
+
+          described_class.new(image_name, background_image, mask_image)
+          expect(a_request(:get, mesh_url)).to have_been_made.once
+          expect(a_request(:get, background_url)).not_to have_been_made
+          expect(a_request(:get, mask_url)).not_to have_been_made
+        end
       end
     end
 
