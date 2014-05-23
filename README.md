@@ -23,10 +23,10 @@ Or install it yourself as:
 
 ## Usage
 
-    ramesh                  download the latest image
-    ramesh [0-120]          download the image specified minutes before
-    ramesh [0-120]-[0-120]  download images within a specified range
-    ramesh -h               show this usage
+    ramesh [-d save_dir]              download the latest image
+    ramesh [-d save_dir] 0-120        download the image specified minutes before
+    ramesh [-d save_dir] 0-120 0-120  download images within a specified range
+    ramesh -h, --help                 show this usage
 
 ## Contributing
 
