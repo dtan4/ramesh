@@ -28,8 +28,8 @@ module Ramesh
     describe "#download_image" do
       before do
         image = double(write: true)
-        Image.stub(download_image: image)
-        Image.any_instance.stub(composite_images: image)
+        allow(Image).to receive(:download_image).and_return(image)
+        allow_any_instance_of(Image).to receive(:composite_images).and_return(image)
       end
 
       context "when minute is not specified" do

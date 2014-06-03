@@ -82,7 +82,7 @@ module Ramesh
       it "should save itself to the file" do
         image = described_class.new(image_name)
         image.save(tmpdir, image_name)
-        expect(File.exist?(File.join(tmpdir, "#{image_name}.jpg"))).to be_true
+        expect(File.exist?(File.join(tmpdir, "#{image_name}.jpg"))).to be_truthy
       end
 
       after do
