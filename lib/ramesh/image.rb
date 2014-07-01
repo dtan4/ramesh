@@ -1,4 +1,4 @@
-require "RMagick"
+require "mini_magick"
 require "open-uri"
 
 module Ramesh
@@ -34,7 +34,7 @@ module Ramesh
     private
 
     def self.download_image(url)
-      Magick::Image.from_blob(open(url).read).shift
+      MiniMagick::Image.read(open(url).read)
     end
 
     def moment_image_url(image_name)
@@ -43,7 +43,13 @@ module Ramesh
 
     def composite_images(image_list)
       image = image_list.shift
-      image_list.each { |layer| image = image.composite(layer, 0, 0, Magick::OverCompositeOp) }
+
+      image_list.each do |layer|
+        image = image.composite(layer) do |c|
+          c.compose "Over"
+        end
+      end
+
       image
     end
   end
