@@ -5,10 +5,10 @@ require "ramesh"
 
 USAGE = <<-EOS
 Usage:
-    ramesh [-d save_dir]              download the latest image
-    ramesh [-d save_dir] 0-120        download the image specified minutes before
-    ramesh [-d save_dir] 0-120 0-120  download images within a specified range
-    ramesh -h, --help                 show this usage
+    ramesh [-d save_dir] [-f filename]                 download the latest image
+    ramesh [-d save_dir] [-f filename] 0..120          download the image specified minutes before
+    ramesh [-d save_dir] [-f filename] 0..120 0..120   download images within a specified range
+    ramesh -h, --help                                  show this usage
 EOS
 
 save_dir = Dir.pwd
