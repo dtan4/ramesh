@@ -19,7 +19,7 @@ module Ramesh
       @logger.info("Downloaded: #{filename}")
     end
 
-    def download_sequential_images(save_dir, from, to)
+    def download_sequential_images(from, to, save_dir)
       unless valid_minutes?(from) && valid_minutes?(to)
         raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120"
       end
