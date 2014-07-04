@@ -34,7 +34,7 @@ module Ramesh
 
       context "when minute is not specified" do
         it "should download the current image" do
-          expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091845").once
+          expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091845.jpg").once
           client.download_image(tmpdir)
         end
 
@@ -46,7 +46,7 @@ module Ramesh
 
       context "when valid minute is specified" do
         it "should download the image of the specified minutes ago" do
-          expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091815").once
+          expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091815.jpg").once
           client.download_image(tmpdir, 30)
         end
 

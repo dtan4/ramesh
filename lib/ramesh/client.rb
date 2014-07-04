@@ -12,10 +12,11 @@ module Ramesh
       end
 
       image_name = name_from_minute(minute)
+      filename = "#{image_name}.jpg"
       image = Image.new(image_name, background_image, mask_image)
-      image.save(save_dir, image_name)
+      image.save(save_dir, filename)
 
-      @logger.info("Downloaded: #{image_name}.jpg")
+      @logger.info("Downloaded: #{filename}")
     end
 
     def download_sequential_images(save_dir, from, to)
