@@ -6,13 +6,13 @@ module Ramesh
       @logger = logger
     end
 
-    def download_image(save_dir, minute = 0)
+    def download_image(minute, save_dir, filename = nil)
       unless valid_minutes?(minute)
         raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120"
       end
 
       image_name = name_from_minute(minute)
-      filename = "#{image_name}.jpg"
+      filename ||= "#{image_name}.jpg"
       image = Image.new(image_name, background_image, mask_image)
       image.save(save_dir, filename)
 
