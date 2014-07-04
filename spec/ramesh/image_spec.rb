@@ -7,6 +7,10 @@ module Ramesh
       "201405091845"
     end
 
+    let(:filename) do
+      "201405091845.jpg"
+    end
+
     let(:tmpdir) do
       File.expand_path(File.join("..", "..", "tmp"), __FILE__)
     end
@@ -81,8 +85,8 @@ module Ramesh
 
       it "should save itself to the file" do
         image = described_class.new(image_name)
-        image.save(tmpdir, image_name)
-        expect(File.exist?(File.join(tmpdir, "#{image_name}.jpg"))).to be_truthy
+        image.save(tmpdir, filename)
+        expect(File.exist?(File.join(tmpdir, filename))).to be_truthy
       end
 
       after do

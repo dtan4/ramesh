@@ -12,9 +12,11 @@ Usage:
 EOS
 
 save_dir = Dir.pwd
+filename = nil
 
 parser = OptionParser.new(USAGE) do |opt|
   opt.on("-d", "--dir=VAL", "Save directory (default: current directory)") { |val| save_dir = val }
+  opt.on("-f", "--filename=VAL", "Save file name (default: timestamp index of downloaded image)") { |val| filename = val }
 end
 
 argv = parser.parse(ARGV)
@@ -23,11 +25,11 @@ client = Ramesh::Client.new(Ramesh::Logger.new(STDOUT))
 
 case argv.length
 when 0
-  client.download_image(save_dir)
+  client.download_image(0, save_dir, filename)
 when 1
-  client.download_image(save_dir, argv[0].to_i)
+  client.download_image(argv[0].to_i, save_dir, filename)
 when 2
-  client.download_sequential_images(save_dir, argv[0].to_i, argv[1].to_i)
+  client.download_sequential_images(argv[0].to_i, argv[1].to_i, save_dir)
 else
   $stderr.puts USAGE
   exit 1
