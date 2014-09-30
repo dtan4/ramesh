@@ -19,12 +19,24 @@ module Ramesh
       "http://tokyo-ame.jwa.or.jp/mesh/000/#{image_name}.gif"
     end
 
+    let(:mesh_url_large) do
+      "http://tokyo-ame.jwa.or.jp/mesh/100/#{image_name}.gif"
+    end
+
     let(:background_url) do
       "http://tokyo-ame.jwa.or.jp/map/map000.jpg"
     end
 
+    let(:background_url_large) do
+      "http://tokyo-ame.jwa.or.jp/map/map100.jpg"
+    end
+
     let(:mask_url) do
       "http://tokyo-ame.jwa.or.jp/map/msk000.png"
+    end
+
+    let(:mask_url_large) do
+      "http://tokyo-ame.jwa.or.jp/map/msk100.png"
     end
 
     let(:fixture_image) do
@@ -34,24 +46,16 @@ module Ramesh
     before do
       stub_request(:get, mesh_url)
         .to_return(status: 200, body: fixture_image)
+      stub_request(:get, mesh_url_large)
+        .to_return(status: 200, body: fixture_image)
       stub_request(:get, background_url)
+        .to_return(status: 200, body: fixture_image)
+      stub_request(:get, background_url_large)
         .to_return(status: 200, body: fixture_image)
       stub_request(:get, mask_url)
         .to_return(status: 200, body: fixture_image)
-    end
-
-    describe "#background_image" do
-      it "should download the background image" do
-        described_class.background_image
-        expect(a_request(:get, background_url)).to have_been_made.once
-      end
-    end
-
-    describe "#mask_image" do
-      it "should download the mask image" do
-        described_class.mask_image
-        expect(a_request(:get, mask_url)).to have_been_made.once
-      end
+      stub_request(:get, mask_url_large)
+        .to_return(status: 200, body: fixture_image)
     end
 
     describe "#initialize" do

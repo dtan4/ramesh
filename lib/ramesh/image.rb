@@ -3,23 +3,14 @@ require "open-uri"
 
 module Ramesh
   class Image
-    MESH_URL_BASE = "http://tokyo-ame.jwa.or.jp/mesh/000/"
-    BACKGROUND_IMAGE_URL = "http://tokyo-ame.jwa.or.jp/map/map000.jpg"
-    MASK_IMAGE_URL = "http://tokyo-ame.jwa.or.jp/map/msk000.png"
+    MESH_URL_BASE = "http://tokyo-ame.jwa.or.jp/mesh"
+    MAP_URL_BASE = "http://tokyo-ame.jwa.or.jp/map"
 
-    def self.background_image
-      download_image(BACKGROUND_IMAGE_URL)
-    end
-
-    def self.mask_image
-      download_image(MASK_IMAGE_URL)
-    end
-
-    def initialize(image_name)
+    def initialize(image_name, image_size = :small)
       image_list = [
-                    self.class.background_image,
-                    self.class.download_image(moment_image_url(image_name)),
-                    self.class.mask_image
+                    background_image(image_size),
+                    moment_image(image_name, image_size),
+                    mask_image(image_size)
                    ]
       @image = composite_images(image_list)
     end
@@ -31,12 +22,43 @@ module Ramesh
 
     private
 
-    def self.download_image(url)
+    def background_image(image_size)
+      download_image(background_image_url(image_size))
+    end
+
+    def moment_image(image_name, image_size)
+      download_image(moment_image_url(image_name, image_size))
+    end
+
+    def mask_image(image_size)
+      download_image(mask_image_url(image_size))
+    end
+
+    def download_image(url)
       MiniMagick::Image.read(open(url).read)
     end
 
-    def moment_image_url(image_name)
-      "#{MESH_URL_BASE}#{image_name}.gif"
+    def size_number(image_size)
+      case image_size
+      when :small
+        "000"
+      when :large
+        "100"
+      else
+        raise ArgumentError, "Invalid size is given"
+      end
+    end
+
+    def background_image_url(image_size)
+      "#{MAP_URL_BASE}/map#{size_number(image_size)}.jpg"
+    end
+
+    def moment_image_url(image_name, image_size)
+      "#{MESH_URL_BASE}/#{size_number(image_size)}/#{image_name}.gif"
+    end
+
+    def mask_image_url(image_size)
+      "#{MAP_URL_BASE}/msk#{size_number(image_size)}.png"
     end
 
     def composite_images(image_list)

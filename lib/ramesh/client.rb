@@ -7,11 +7,11 @@ module Ramesh
     end
 
     def download_image(minute, save_dir, filename = nil)
-      _download_image(minute, save_dir, filename, false)
+      _download_image(minute, save_dir, filename, :small)
     end
 
     def download_large_image(minute, save_dir, filename = nil)
-      _download_image(minute, save_dir, filename, true)
+      _download_image(minute, save_dir, filename, :large)
     end
 
     def download_sequential_images(from, to, save_dir)
@@ -24,12 +24,12 @@ module Ramesh
 
     private
 
-    def _download_image(minute, save_dir, filename, large_image)
+    def _download_image(minute, save_dir, filename, image_size)
       raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120" unless valid_minutes?(minute)
 
       image_name = name_from_minute(minute)
       filename ||= "#{image_name}.jpg"
-      image = Image.new(image_name, background_image, mask_image)
+      image = Image.new(image_name, image_size)
       image.save(save_dir, filename)
 
       @logger.info("Downloaded: #{filename}")
