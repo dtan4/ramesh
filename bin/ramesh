@@ -13,10 +13,12 @@ EOS
 
 save_dir = Dir.pwd
 filename = nil
+large_image = false
 
 parser = OptionParser.new(USAGE) do |opt|
   opt.on("-d", "--dir=VAL", "Save directory (default: current directory)") { |val| save_dir = val }
   opt.on("-f", "--filename=VAL", "Save file name (default: timestamp index of downloaded image)") { |val| filename = val }
+  opt.on("-l", "--large", "Download large image") { |large| large_image = large }
 end
 
 argv = parser.parse(ARGV)
@@ -25,9 +27,17 @@ client = Ramesh::Client.new(Ramesh::Logger.new(STDOUT))
 
 case argv.length
 when 0
-  client.download_image(0, save_dir, filename)
+  if large_image
+    client.download_large_image(0, save_dir, filename)
+  else
+    client.download_image(0, save_dir, filename)
+  end
 when 1
-  client.download_image(argv[0].to_i, save_dir, filename)
+  if large_image
+    client.download_large_image(argv[0].to_i, save_dir, filename)
+  else
+    client.download_image(argv[0].to_i, save_dir, filename)
+  end
 when 2
   client.download_sequential_images(argv[0].to_i, argv[1].to_i, save_dir)
 else
