@@ -3,21 +3,10 @@ require "fileutils"
 
 module Ramesh
   describe Client do
-    let(:logger) do
-      double("logger", info: true)
-    end
-
-    let(:client) do
-      Ramesh::Client.new(logger)
-    end
-
-    let(:tmpdir) do
-      File.expand_path(File.join("..", "..", "tmp"), __FILE__)
-    end
-
-    let(:meshes_index_url) do
-      "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js"
-    end
+    let(:logger) { double("logger", info: true) }
+    let(:client) { Ramesh::Client.new(logger) }
+    let(:tmpdir) { File.expand_path(File.join("..", "..", "tmp"), __FILE__) }
+    let(:meshes_index_url) { "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js" }
 
     before do
       stub_request(:get, meshes_index_url)
@@ -26,17 +15,9 @@ module Ramesh
     end
 
     describe "#download_image" do
-      let(:download_image) do
-        client.download_image(minute, tmpdir, filename)
-      end
-
-      let(:minute) do
-        0
-      end
-
-      let(:filename) do
-        nil
-      end
+      let(:download_image) { client.download_image(minute, tmpdir, filename) }
+      let(:minute)         { 0 }
+      let(:filename)       { nil }
 
       before do
         image = double(write: true)
@@ -85,17 +66,9 @@ module Ramesh
     end
 
     describe "#download_large_image" do
-      let(:download_large_image) do
-        client.download_large_image(minute, tmpdir, filename)
-      end
-
-      let(:minute) do
-        0
-      end
-
-      let(:filename) do
-        nil
-      end
+      let(:download_large_image) { client.download_large_image(minute, tmpdir, filename) }
+      let(:minute)               { 0 }
+      let(:filename)             { nil }
 
       before do
         image = double(write: true)
@@ -104,9 +77,7 @@ module Ramesh
       end
 
       context "when valid minute is specified" do
-        let(:minute) do
-          30
-        end
+        let(:minute) { 30 }
 
         it "should download the image of the specified minutes ago" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091815.jpg").once
@@ -120,9 +91,7 @@ module Ramesh
       end
 
       context "when invalid minute is specified" do
-        let(:minute) do
-          7
-        end
+        let(:minute) { 7 }
 
         it "should raise ArgumentError" do
           expect do
@@ -132,9 +101,7 @@ module Ramesh
       end
 
       context "when filename is specified" do
-        let(:filename) do
-          "out.jpg"
-        end
+        let(:filename) { "out.jpg" }
 
         it "should download the image with specified name" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "out.jpg").once
@@ -144,9 +111,7 @@ module Ramesh
     end
 
     describe "#download_sequential_images" do
-      let(:download_sequential_images) do
-        client.download_sequential_images(from, to, tmpdir)
-      end
+      let(:download_sequential_images) { client.download_sequential_images(from, to, tmpdir) }
 
       before do
         image = double(write: true)
@@ -155,13 +120,8 @@ module Ramesh
       end
 
       context "when valid section is specified" do
-        let(:from) do
-          0
-        end
-
-        let(:to) do
-          30
-        end
+        let(:from) { 0 }
+        let(:to)   { 30 }
 
         it "should download the images" do
           expect_any_instance_of(Client).to receive(:download_image).exactly(7).times
@@ -170,13 +130,8 @@ module Ramesh
       end
 
       context "when invalid section is specified" do
-        let(:from) do
-          1
-        end
-
-        let(:to) do
-          2
-        end
+        let(:from) { 1 }
+        let(:to)   { 2 }
 
         it "should raise ArgumentError" do
           expect do

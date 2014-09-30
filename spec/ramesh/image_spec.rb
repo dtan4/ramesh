@@ -3,17 +3,9 @@ require "fileutils"
 
 module Ramesh
   describe Image do
-    let(:image_name) do
-      "201405091845"
-    end
-
-    let(:filename) do
-      "201405091845.jpg"
-    end
-
-    let(:tmpdir) do
-      File.expand_path(File.join("..", "..", "tmp"), __FILE__)
-    end
+    let(:image_name) { "201405091845" }
+    let(:filename)   { "201405091845.jpg" }
+    let(:tmpdir)     { File.expand_path(File.join("..", "..", "tmp"), __FILE__) }
 
     let(:mesh_url) do
       "http://tokyo-ame.jwa.or.jp/mesh/000/#{image_name}.gif"
