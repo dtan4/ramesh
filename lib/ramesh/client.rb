@@ -7,9 +7,25 @@ module Ramesh
     end
 
     def download_image(minute, save_dir, filename = nil)
-      unless valid_minutes?(minute)
-        raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120"
+      _download_image(minute, save_dir, filename, false)
+    end
+
+    def download_large_image(minute, save_dir, filename = nil)
+      _download_image(minute, save_dir, filename, true)
+    end
+
+    def download_sequential_images(from, to, save_dir)
+      raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120" unless valid_minutes?(from) && valid_minutes?(to)
+
+      (from..to).step(5) do |minute|
+        download_image(minute, save_dir)
       end
+    end
+
+    private
+
+    def _download_image(minute, save_dir, filename, large_image)
+      raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120" unless valid_minutes?(minute)
 
       image_name = name_from_minute(minute)
       filename ||= "#{image_name}.jpg"
@@ -18,18 +34,6 @@ module Ramesh
 
       @logger.info("Downloaded: #{filename}")
     end
-
-    def download_sequential_images(from, to, save_dir)
-      unless valid_minutes?(from) && valid_minutes?(to)
-        raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120"
-      end
-
-      (from..to).step(5) do |minute|
-        download_image(save_dir, minute)
-      end
-    end
-
-    private
 
     def background_image
       @background_image ||= Image.background_image
