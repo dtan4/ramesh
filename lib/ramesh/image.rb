@@ -15,13 +15,11 @@ module Ramesh
       download_image(MASK_IMAGE_URL)
     end
 
-    def initialize(image_name,
-                   background_image = self.class.background_image,
-                   mask_image = self.class.mask_image)
+    def initialize(image_name)
       image_list = [
-                    background_image,
+                    self.class.background_image,
                     self.class.download_image(moment_image_url(image_name)),
-                    mask_image
+                    self.class.mask_image
                    ]
       @image = composite_images(image_list)
     end

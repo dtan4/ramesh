@@ -63,19 +63,6 @@ module Ramesh
           expect(a_request(:get, mask_url)).to have_been_made.once
         end
       end
-
-      context "with cached images" do
-        it "should composite the moment image" do
-          image = double(composite: true)
-          background_image = double(composite: image)
-          mask_image = double(composite: image)
-
-          described_class.new(image_name, background_image, mask_image)
-          expect(a_request(:get, mesh_url)).to have_been_made.once
-          expect(a_request(:get, background_url)).not_to have_been_made
-          expect(a_request(:get, mask_url)).not_to have_been_made
-        end
-      end
     end
 
     describe "#save" do
