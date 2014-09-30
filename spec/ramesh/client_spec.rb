@@ -40,7 +40,7 @@ module Ramesh
 
       before do
         image = double(write: true)
-        allow(Image).to receive(:download_image).and_return(image)
+        allow_any_instance_of(Image).to receive(:download_image).and_return(image)
         allow_any_instance_of(Image).to receive(:composite_images).and_return(image)
       end
 
@@ -99,7 +99,7 @@ module Ramesh
 
       before do
         image = double(write: true)
-        allow(Image).to receive(:download_image).and_return(image)
+        allow_any_instance_of(Image).to receive(:download_image).and_return(image)
         allow_any_instance_of(Image).to receive(:composite_images).and_return(image)
       end
 
@@ -150,7 +150,7 @@ module Ramesh
 
       before do
         image = double(write: true)
-        allow(Image).to receive(:download_image).and_return(image)
+        allow_any_instance_of(Image).to receive(:download_image).and_return(image)
         allow_any_instance_of(Image).to receive(:composite_images).and_return(image)
       end
 
