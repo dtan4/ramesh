@@ -23,23 +23,23 @@ end
 
 argv = parser.parse(ARGV)
 
-client = Ramesh::Client.new(Ramesh::Logger.new(STDOUT))
+client = Ramesh::Client.new
 
 case argv.length
 when 0
   if large_image
-    client.download_large_image(0, save_dir, filename)
+    puts client.download_large_image(0, save_dir, filename)
   else
-    client.download_image(0, save_dir, filename)
+    puts client.download_image(0, save_dir, filename)
   end
 when 1
   if large_image
-    client.download_large_image(argv[0].to_i, save_dir, filename)
+    puts client.download_large_image(argv[0].to_i, save_dir, filename)
   else
-    client.download_image(argv[0].to_i, save_dir, filename)
+    puts client.download_image(argv[0].to_i, save_dir, filename)
   end
 when 2
-  client.download_sequential_images(argv[0].to_i, argv[1].to_i, save_dir)
+  puts client.download_sequential_images(argv[0].to_i, argv[1].to_i, save_dir).join(", ")
 else
   $stderr.puts USAGE
   exit 1

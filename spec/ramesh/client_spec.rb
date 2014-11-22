@@ -3,8 +3,7 @@ require "fileutils"
 
 module Ramesh
   describe Client do
-    let(:logger) { double("logger", info: true) }
-    let(:client) { Ramesh::Client.new(logger) }
+    let(:client) { Ramesh::Client.new }
     let(:tmpdir) { File.expand_path(File.join("..", "..", "tmp"), __FILE__) }
     let(:meshes_index_url) { "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js" }
 
@@ -36,11 +35,6 @@ module Ramesh
 
         it "should download the image of the specified minutes ago" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091815.jpg").once
-          download_image
-        end
-
-        it "should log the result" do
-          expect(logger).to receive(:info).with("Downloaded: 201405091815.jpg")
           download_image
         end
       end
@@ -93,11 +87,6 @@ module Ramesh
 
         it "should download the image of the specified minutes ago" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091815.jpg").once
-          download_large_image
-        end
-
-        it "should log the result" do
-          expect(logger).to receive(:info).with("Downloaded: 201405091815.jpg")
           download_large_image
         end
       end
