@@ -33,6 +33,8 @@ module Ramesh
       image.save(save_dir, filename)
 
       @logger.info("Downloaded: #{filename}")
+
+      filename
     end
 
     def background_image
