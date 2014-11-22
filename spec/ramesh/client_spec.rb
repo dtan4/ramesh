@@ -139,6 +139,12 @@ module Ramesh
         let(:from) { 0 }
         let(:to)   { 30 }
 
+        it "should return the array of image names" do
+          result = download_sequential_images
+          expect(result).to be_a Array
+          expect(result.length).to eq 7
+        end
+
         it "should download the images" do
           expect_any_instance_of(Client).to receive(:download_image).exactly(7).times
           download_sequential_images

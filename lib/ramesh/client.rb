@@ -17,9 +17,13 @@ module Ramesh
     def download_sequential_images(from, to, save_dir)
       raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120" unless valid_minutes?(from) && valid_minutes?(to)
 
+      image_names = []
+
       (from..to).step(5) do |minute|
-        download_image(minute, save_dir)
+        image_names << download_image(minute, save_dir)
       end
+
+      image_names
     end
 
     private
