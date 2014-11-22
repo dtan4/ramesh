@@ -30,6 +30,10 @@ module Ramesh
           30
         end
 
+        it "should return image name" do
+          expect(download_image).to eq "201405091815.jpg"
+        end
+
         it "should download the image of the specified minutes ago" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091815.jpg").once
           download_image
@@ -58,6 +62,10 @@ module Ramesh
           "out.jpg"
         end
 
+        it "should return image name" do
+          expect(download_image).to eq filename
+        end
+
         it "should download the image with specified name" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "out.jpg").once
           download_image
@@ -78,6 +86,10 @@ module Ramesh
 
       context "when valid minute is specified" do
         let(:minute) { 30 }
+
+        it "should return image name" do
+          expect(download_large_image).to eq "201405091815.jpg"
+        end
 
         it "should download the image of the specified minutes ago" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "201405091815.jpg").once
@@ -103,6 +115,10 @@ module Ramesh
       context "when filename is specified" do
         let(:filename) { "out.jpg" }
 
+        it "should return image name" do
+          expect(download_large_image).to eq filename
+        end
+
         it "should download the image with specified name" do
           expect_any_instance_of(Image).to receive(:save).with(tmpdir, "out.jpg").once
           download_large_image
@@ -122,6 +138,12 @@ module Ramesh
       context "when valid section is specified" do
         let(:from) { 0 }
         let(:to)   { 30 }
+
+        it "should return the array of image names" do
+          result = download_sequential_images
+          expect(result).to be_a Array
+          expect(result.length).to eq 7
+        end
 
         it "should download the images" do
           expect_any_instance_of(Client).to receive(:download_image).exactly(7).times

@@ -17,8 +17,8 @@ module Ramesh
     def download_sequential_images(from, to, save_dir)
       raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120" unless valid_minutes?(from) && valid_minutes?(to)
 
-      (from..to).step(5) do |minute|
-        download_image(minute, save_dir)
+      [].tap do |image_names|
+        (from..to).step(5) { |minute| image_names << download_image(minute, save_dir) }
       end
     end
 
@@ -33,6 +33,8 @@ module Ramesh
       image.save(save_dir, filename)
 
       @logger.info("Downloaded: #{filename}")
+
+      filename
     end
 
     def background_image
