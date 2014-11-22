@@ -2,10 +2,6 @@ module Ramesh
   class Client
     MESHES_INDEX_URL = "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js"
 
-    def initialize(logger)
-      @logger = logger
-    end
-
     def download_image(minute, save_dir, filename = nil)
       _download_image(minute, save_dir, filename, :small)
     end
@@ -31,8 +27,6 @@ module Ramesh
       filename ||= "#{image_name}.jpg"
       image = Image.new(image_name, image_size)
       image.save(save_dir, filename)
-
-      @logger.info("Downloaded: #{filename}")
 
       filename
     end
