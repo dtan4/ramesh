@@ -3,11 +3,11 @@ module Ramesh
     MESHES_INDEX_URL = "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js"
 
     def download_image(minute, save_dir, filename = nil)
-      _download_image(minute, save_dir, filename, :small)
+      download(minute, save_dir, filename, :small)
     end
 
     def download_large_image(minute, save_dir, filename = nil)
-      _download_image(minute, save_dir, filename, :large)
+      download(minute, save_dir, filename, :large)
     end
 
     def download_sequential_images(from, to, save_dir)
@@ -20,7 +20,7 @@ module Ramesh
 
     private
 
-    def _download_image(minute, save_dir, filename, image_size)
+    def download(minute, save_dir, filename, image_size)
       raise ArgumentError, "minutes must be a number; 0, 5, 10, ... 120" unless valid_minutes?(minute)
 
       image_name = name_from_minute(minute)
