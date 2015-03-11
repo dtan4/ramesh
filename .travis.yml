@@ -1,4 +1,5 @@
 language: ruby
+sudo: false
 addons:
   code_climate:
     repo_token: oshGwJLUmoVW4rxGVlfgutKzrSW3arKW6xxqEH99r74Tva6VlxTmjmL/H9z2Erf4POMi0kqRh1b8brGGb48oVFRc3xOCX8EM/4rchgdSK38/Ue+MOffsYTyqXFY0fYF8rwbsYssAPsFd+3BsdmJ2uOBWtHil4nRxxm2ixxNAZgU=
