@@ -1,3 +1,5 @@
+require "open-uri"
+
 module Ramesh
   class Client
     MESHES_INDEX_URL = "http://tokyo-ame.jwa.or.jp/scripts/mesh_index.js"
@@ -40,7 +42,7 @@ module Ramesh
     end
 
     def meshes_index
-      @meshes_index ||= open(MESHES_INDEX_URL).read.gsub(/[^0-9,]/, "").split(",")
+      @meshes_index ||= URI.open(MESHES_INDEX_URL).read.gsub(/[^0-9,]/, "").split(",")
     end
 
     def name_from_minute(minute)
