@@ -35,7 +35,7 @@ module Ramesh
     end
 
     def download_image(url)
-      MiniMagick::Image.read(open(url).read)
+      MiniMagick::Image.read(URI.open(url).read)
     end
 
     def size_number(image_size)
