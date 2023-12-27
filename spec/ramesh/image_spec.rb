@@ -32,7 +32,7 @@ module Ramesh
     end
 
     let(:fixture_image) do
-      open(fixture_path("lena.png")).read
+      open(fixture_path("dummy.png")).read
     end
 
     before do
